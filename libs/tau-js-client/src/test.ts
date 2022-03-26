@@ -1,13 +1,13 @@
 import { interval, OperatorFunction, scan } from 'rxjs';
 import { TauMessage } from './lib/messages/message.model';
 
-
 interval(200)
   .pipe(
     mostRecent()
   )
   .subscribe(queue => console.log(queue.join(', ')));
 
+/** RxJS operator to combine a certain number of items to an array */
 export function mostRecent<T>(count = 10): OperatorFunction<T, T[]> {
   return scan((all, current) => {
     const temp = [...all, current];
